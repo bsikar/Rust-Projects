@@ -1,4 +1,3 @@
-// This is a test comment
 use std::io::prelude::*;
 
 fn main() {
