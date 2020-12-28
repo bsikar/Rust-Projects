@@ -30,7 +30,7 @@ impl Hand {
         for i in self.card.iter() {
             sum.0 += i.1;
         }
-        if self.is_ace() > 1 {
+        if self.is_ace() > 0 {
             sum.1 = sum.0 + 10;
         }
         sum
