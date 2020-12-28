@@ -40,8 +40,7 @@ impl Hand {
             if self.is_ace() == 1 {
                 if self.sum().1 < 22 {
                     format!("{} if your ace is a 1 or {} if your ace is an 11", self.sum().0, self.sum().1)
-                }
-                else {
+                } else {
                     format!("{}", self.sum().0)
                 }
             } else if self.is_ace() > 1 {
