@@ -1,4 +1,4 @@
-# Rust-Projects
+# Rust_Projects
 This is just a collections of small things that I did in rust, some projects that I did may have been forked from others.
 
 I am making this because I am learning rust and I would like to look back on how I have improved.
