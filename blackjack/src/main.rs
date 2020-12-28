@@ -9,6 +9,7 @@ fn play() {
     let mut deck = Deck::new();
     let mut hand = Hand::new();
     let mut dealer_hand = Hand::new();
+    
     hand.add(&mut deck);
     hand.add(&mut deck);
     dealer_hand.add(&mut deck);
