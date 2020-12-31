@@ -9,7 +9,7 @@ fn play() {
     let mut deck = Deck::new();
     let mut hand = Hand::new();
     let mut dealer_hand = Hand::new();
-    
+
     hand.add(&mut deck);
     hand.add(&mut deck);
     dealer_hand.add(&mut deck);
@@ -24,12 +24,12 @@ fn play() {
         match answer.as_str() {
             "\n"|"y\n"|"Y\n" => {
                 hand.add(&mut deck);
-                if dealer_hand.sum().1 < 17 {
+                if dealer_hand.sum().0 < 16 {
                     dealer_hand.add(&mut deck);
                 }
             },
             "n\n"|"N\n" => {
-                if dealer_hand.sum().1 < 17 {
+                if dealer_hand.sum().0 < 16 {
                     dealer_hand.add(&mut deck);
                 }
                 break;
