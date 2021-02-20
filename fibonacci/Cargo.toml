@@ -1,0 +1,9 @@
+[package]
+name = "fibonacci"
+version = "0.1.0"
+authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
+homepage = "https://github.com/pissmilk/Rust_Projects/tree/main/fibonacci"
+license = "MIT"
+edition = "2018"
+
+[dependencies]

@@ -1,0 +1,9 @@
+[package]
+name = "adding_and_cating_a_file"
+version = "0.1.0"
+authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
+homepage = "https://github.com/pissmilk/Rust_Projects/tree/main/adding_and_cating_a_file"
+license = "MIT"
+edition = "2018"
+
+[dependencies]

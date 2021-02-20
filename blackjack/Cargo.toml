@@ -1,0 +1,10 @@
+[package]
+name = "black_jack"
+version = "0.1.0"
+authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
+homepage = "https://github.com/pissmilk/Rust_Projects/tree/main/blackjack"
+license = "MIT"
+edition = "2018"
+
+[dependencies]
+rand = "0.8.0"

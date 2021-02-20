@@ -1,0 +1,9 @@
+[package]
+name = "btreemap_and_files"
+version = "0.1.0"
+authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
+homepage = "https://github.com/pissmilk/Rust_Projects/tree/main/btreemap_and_files"
+license = "MIT"
+edition = "2018"
+
+[dependencies]
