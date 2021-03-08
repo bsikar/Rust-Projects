@@ -26,7 +26,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 fn main() {
-    let file = File::open("file_name").unwrap();
+    let file = File::open("input_file").unwrap();
     let reader = BufReader::new(file);
     let mut map = HashMap::new();
 
