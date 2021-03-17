@@ -37,5 +37,5 @@ fn main() {
         }
     };
 
-    println!("{}^2 = (y + {})^2 + (x + {})^2", radius, center_point.1, center_point.0);
+    println!("{}^2 = (y - {})^2 + (x - {})^2", radius, center_point.1, center_point.0);
 }
