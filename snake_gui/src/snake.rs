@@ -104,32 +104,24 @@ impl Snake {
         // Note: I am using 2 match cases here for visibilty (I could have put this in the one up above).
         match self.direction {
             Direction::Left => {
-                if self.position.x != 0 {
-                    self.position.x -= 1;
-                    self.pop();
-                    self.push(self.position);
-                }
+                self.position.x -= 1;
+                self.pop();
+                self.push(self.position);
             }
             Direction::Right => {
-                if self.position.x != Screen::WIDTH {
-                    self.position.x += 1;
-                    self.pop();
-                    self.push(self.position);
-                }
+                self.position.x += 1;
+                self.pop();
+                self.push(self.position);
             }
             Direction::Up => {
-                if self.position.y != 0 {
-                    self.position.y -= 1;
-                    self.pop();
-                    self.push(self.position);
-                }
+                self.position.y -= 1;
+                self.pop();
+                self.push(self.position);
             }
             Direction::Down => {
-                if self.position.y != Screen::HEIGHT {
-                    self.position.y += 1;
-                    self.pop();
-                    self.push(self.position);
-                }
+                self.position.y += 1;
+                self.pop();
+                self.push(self.position);
             }
             Direction::Still => {}
         }
