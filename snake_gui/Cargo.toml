@@ -1,0 +1,11 @@
+[package]
+name = "snake_gui"
+version = "0.1.0"
+authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
+homepage = "https://github.com/bsikar/Rust_Projects/tree/main/snake_gui"
+license = "MIT"
+edition = "2018"
+
+[dependencies]
+rand = "0.8.0"
+piston_window = "0.119.0"
