@@ -31,18 +31,6 @@ pub fn to_block_size(size: u32) -> f64 {
 
 pub fn draw(color: Color, x: u32, y: u32, width: u32, height: u32, c: &Context, g: &mut G2d) {
     rectangle(
-        [0.3, 0.4, 0.0, 0.6],
-        [
-            0.0,
-            0.0,
-            to_block_size(Screen::WIDTH),
-            to_block_size(Screen::HEIGHT),
-        ],
-        c.transform,
-        g,
-    );
-
-    rectangle(
         color,
         [
             to_block_size(x),
