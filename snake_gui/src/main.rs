@@ -68,7 +68,9 @@ fn main() {
         });
 
         if game.over() {
-            break;
+            if let Some(args) = e.render_args() {
+                game.draw_game_over(args);
+            }
         }
     }
 }
