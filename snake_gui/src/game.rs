@@ -22,7 +22,9 @@
  */
 
 use crate::food::Food;
+use crate::screen::Screen;
 use crate::snake::*;
+use opengl_graphics::{GlGraphics, GlyphCache};
 use piston_window::*;
 
 pub struct Game {
@@ -66,5 +68,26 @@ impl Game {
 
     pub fn over(&self) -> bool {
         !self.snake.is_alive()
+    }
+
+    pub fn draw_game_over(&self, args: RenderArgs) {
+        let mut gl = GlGraphics::new(OpenGL::V3_2);
+        let mut glyphs =
+            GlyphCache::new("assets/FiraSans-Regular.ttf", (), TextureSettings::new()).unwrap();
+        gl.draw(args.viewport(), |c, g| {
+            clear([0.5; 4], g);
+            text(
+                [1.0, 0.99, 0.22, 1.0],
+                30,
+                format!("Final Length: {}", self.snake.length).as_str(),
+                &mut glyphs,
+                c.transform.trans(
+                    f64::from(Screen::WIDTH * Screen::WIDTH),
+                    f64::from(Screen::HEIGHT * Screen::HEIGHT),
+                ),
+                g,
+            )
+        })
+        .expect("Failed to make end screen");
     }
 }
