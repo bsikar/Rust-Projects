@@ -38,29 +38,30 @@ impl Game {
         }
     }
 
-    pub fn key_press(&mut self, key: Key) {
-        match key {
-            Key::Right | Key::D => self.snake.mv(Direction::Right),
-            Key::Left | Key::A => self.snake.mv(Direction::Left),
-            Key::Down | Key::S => self.snake.mv(Direction::Down),
-            Key::Up | Key::W => self.snake.mv(Direction::Up),
-            Key::Q => self.snake.mv(Direction::Still),
-            _ => self.snake.mv(self.snake.direction),
+    pub fn update(&mut self, args: &UpdateArgs, key: Key) {
+        self.snake.update(args.dt, self.key_direction(key));
+        if self.snake.position == self.food.position {
+            self.snake.eat();
+            self.food.spawn(&self.snake);
         }
     }
 
-    pub fn run(&mut self, key: Key, c: &Context, g: &mut G2d) {
-        self.key_press(key);
-        self.draw(c, g);
+    fn key_direction(&self, key: Key) -> Direction {
+        return {
+            match key {
+                Key::Right | Key::D => Direction::Right,
+                Key::Left | Key::A => Direction::Left,
+                Key::Down | Key::S => Direction::Down,
+                Key::Up | Key::W => Direction::Up,
+                Key::Q => Direction::Still,
+                _ => self.snake.direction,
+            }
+        };
     }
 
     pub fn draw(&mut self, c: &Context, g: &mut G2d) {
         self.snake.draw(c, g);
         self.food.draw(c, g);
-        if self.snake.position == self.food.position {
-            self.snake.eat();
-            self.food.spawn(&self.snake);
-        }
     }
 
     pub fn over(&self) -> bool {
