@@ -26,6 +26,7 @@ use crate::screen::{Position, Screen};
 use piston_window::{types::Color, Context, G2d};
 
 const SNAKE_COLOR: Color = [1., 1., 1., 1.];
+const SNAKE_WAIT: f64 = 0.2;
 
 #[derive(Debug, PartialEq, Copy, Clone)]
 pub enum Direction {
@@ -43,6 +44,7 @@ pub struct Snake {
     pub direction: Direction,
     tail: Vec<Position>,
     is_alive: bool,
+    wait: f64,
 }
 
 impl Snake {
@@ -53,6 +55,7 @@ impl Snake {
             direction: Direction::Still,
             tail: vec![Position { x: x, y: y }],
             is_alive: true,
+            wait: 0.0,
         }
     }
 
@@ -72,6 +75,7 @@ impl Snake {
     }
 
     pub fn mv(&mut self, direction: Direction) {
+        self.wait = 0.0;
         if !self.is_valid() {
             self.is_alive = false;
             return;
@@ -166,5 +170,12 @@ impl Snake {
 
     pub fn is_alive(&self) -> bool {
         self.is_alive
+    }
+
+    pub fn update(&mut self, dt: f64, direction: Direction) {
+        self.wait += dt;
+        if self.wait > SNAKE_WAIT {
+            self.mv(direction);
+        }
     }
 }
