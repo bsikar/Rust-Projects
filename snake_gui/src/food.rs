@@ -45,7 +45,7 @@ impl Food {
     }
 
     pub fn spawn(&mut self, snake: &Snake) {
-        while snake.position == self.position {
+        while snake.tail.contains(&self.position) {
             self.position = Position {
                 x: thread_rng().gen_range(1..Screen::WIDTH),
                 y: thread_rng().gen_range(1..Screen::HEIGHT),
