@@ -28,7 +28,7 @@ use std::collections::VecDeque;
 
 const SNAKE_BODY_COLOR: Color = [0.0, 0.0, 1.0, 1.0];
 const SNAKE_HEAD_COLOR: Color = [1.0, 1.0, 1.0, 1.0];
-const SNAKE_WAIT: f64 = 0.2;
+const SNAKE_WAIT: f64 = 0.1;
 
 #[derive(Debug, PartialEq, Copy, Clone)]
 pub enum Direction {
@@ -42,7 +42,7 @@ pub enum Direction {
 #[derive(Clone, Debug, PartialEq)]
 pub struct Snake {
     pub position: Position,
-    length: u32,
+    pub length: u32,
     pub direction: Direction,
     pub tail: VecDeque<Position>,
     is_alive: bool,
