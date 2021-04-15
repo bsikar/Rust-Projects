@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 rand = "0.8.0"
 piston_window = "0.119.0"
+piston2d-opengl_graphics = "0.78.0"
