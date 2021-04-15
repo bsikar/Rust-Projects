@@ -32,7 +32,6 @@ use game::Game;
 use piston_window::*;
 use screen::Screen;
 use snake::Snake;
-use std::{thread, time};
 
 fn main() {
     let mut game = Game::new(
@@ -51,8 +50,8 @@ fn main() {
     .unwrap_or_else(|e| panic!("Failed to build PistonWindow: {}", e));
 
     let mut x = Key::Q;
+
     while let Some(e) = window.next() {
-        thread::sleep(time::Duration::from_millis(40));
         if let Some(Button::Keyboard(k)) = e.press_args() {
             if k != x {
                 x = k;
@@ -61,7 +60,11 @@ fn main() {
 
         window.draw_2d(&e, |c, g, _| {
             clear([0.5, 0.5, 0.5, 0.5], g);
-            game.run(x, &c, g);
+            game.draw(&c, g);
+        });
+
+        e.update(|args| {
+            game.update(args, x);
         });
 
         if game.over() {
