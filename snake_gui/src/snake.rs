@@ -24,8 +24,10 @@
 use crate::draw::draw;
 use crate::screen::{Position, Screen};
 use piston_window::{types::Color, Context, G2d};
+use std::collections::VecDeque;
 
-const SNAKE_COLOR: Color = [1., 1., 1., 1.];
+const SNAKE_BODY_COLOR: Color = [0.0, 0.0, 1.0, 1.0];
+const SNAKE_HEAD_COLOR: Color = [1.0, 1.0, 1.0, 1.0];
 const SNAKE_WAIT: f64 = 0.2;
 
 #[derive(Debug, PartialEq, Copy, Clone)]
@@ -42,7 +44,7 @@ pub struct Snake {
     pub position: Position,
     length: u32,
     pub direction: Direction,
-    tail: Vec<Position>,
+    pub tail: VecDeque<Position>,
     is_alive: bool,
     wait: f64,
 }
@@ -53,18 +55,10 @@ impl Snake {
             position: Position { x: x, y: y },
             length: 1,
             direction: Direction::Still,
-            tail: vec![Position { x: x, y: y }],
+            tail: vec![].into_iter().collect(),
             is_alive: true,
             wait: 0.0,
         }
-    }
-
-    fn push(&mut self, position: Position) {
-        self.tail.push(position);
-    }
-
-    fn pop(&mut self) {
-        self.tail.pop();
     }
 
     fn is_valid(&self) -> bool {
@@ -107,54 +101,75 @@ impl Snake {
 
         // Note: I am using 2 match cases here for visibilty (I could have put this in the one up above).
         match self.direction {
+            // push_front and pop_back
             Direction::Left => {
+                if self.overlap_tail(self.position.x - 1, self.position.y) {
+                    self.is_alive = false;
+                    return;
+                }
                 self.position.x -= 1;
-                self.pop();
-                self.push(self.position);
+                self.tail.pop_back();
+                self.tail.push_front(self.position);
             }
             Direction::Right => {
+                if self.overlap_tail(self.position.x + 1, self.position.y) {
+                    self.is_alive = false;
+                    return;
+                }
                 self.position.x += 1;
-                self.pop();
-                self.push(self.position);
+                self.tail.pop_back();
+                self.tail.push_front(self.position);
             }
             Direction::Up => {
+                if self.overlap_tail(self.position.x, self.position.y - 1) {
+                    self.is_alive = false;
+                    return;
+                }
                 self.position.y -= 1;
-                self.pop();
-                self.push(self.position);
+                self.tail.pop_back();
+                self.tail.push_front(self.position);
             }
             Direction::Down => {
+                if self.overlap_tail(self.position.x, self.position.y + 1) {
+                    self.is_alive = false;
+                    return;
+                }
                 self.position.y += 1;
-                self.pop();
-                self.push(self.position);
+                self.tail.pop_back();
+                self.tail.push_front(self.position);
             }
             Direction::Still => {}
         }
     }
 
+    fn overlap_tail(&self, x: u32, y: u32) -> bool {
+        self.tail.contains(&Position { x, y })
+    }
+
     pub fn eat(&mut self) {
         match self.direction {
             Direction::Left => {
-                self.push(Position {
+                self.tail.push_back(Position {
                     x: self.position.x + 1,
                     y: self.position.y,
                 });
             }
             Direction::Right => {
-                self.push(Position {
+                self.tail.push_back(Position {
                     x: self.position.x - 1,
                     y: self.position.y,
                 });
             }
             Direction::Up => {
-                self.push(Position {
+                self.tail.push_back(Position {
                     x: self.position.x,
-                    y: self.position.y - 1,
+                    y: self.position.y + 1,
                 });
             }
             Direction::Down => {
-                self.push(Position {
+                self.tail.push_back(Position {
                     x: self.position.x,
-                    y: self.position.y + 1,
+                    y: self.position.y - 1,
                 });
             }
             Direction::Still => {}
@@ -163,9 +178,19 @@ impl Snake {
     }
 
     pub fn draw(&self, c: &Context, g: &mut G2d) {
-        for seg in &self.tail {
-            draw(SNAKE_COLOR, seg.x, seg.y, 1, 1, c, g);
-        }
+        draw(
+            SNAKE_HEAD_COLOR,
+            self.position.x,
+            self.position.y,
+            1,
+            1,
+            c,
+            g,
+        );
+        self.tail
+            .iter()
+            .skip(1)
+            .for_each(|seg| draw(SNAKE_BODY_COLOR, seg.x, seg.y, 1, 1, c, g));
     }
 
     pub fn is_alive(&self) -> bool {
