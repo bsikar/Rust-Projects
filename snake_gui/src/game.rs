@@ -82,8 +82,8 @@ impl Game {
                 format!("Final Length: {}", self.snake.length).as_str(),
                 &mut glyphs,
                 c.transform.trans(
-                    f64::from(Screen::WIDTH * Screen::WIDTH),
-                    f64::from(Screen::HEIGHT * Screen::HEIGHT),
+                    f64::from(Screen::WIDTH),
+                    f64::from(Screen::HEIGHT),
                 ),
                 g,
             )
