@@ -24,30 +24,24 @@
 mod draw;
 mod food;
 mod game;
-mod screen;
 mod snake;
 
 use food::Food;
 use game::Game;
 use piston_window::*;
-use screen::Screen;
 use snake::Snake;
 
 fn main() {
+    let mut window: PistonWindow = WindowSettings::new("Snake Game", [300, 300])
+        .exit_on_esc(true)
+        .build()
+        .unwrap_or_else(|e| panic!("Failed to build PistonWindow: {}", e));
+
     let mut game = Game::new(
-        Snake::new(Screen::WIDTH / 2, Screen::HEIGHT / 2),
-        Food::new(),
+        Snake::new(window.size().width / 2.0, window.size().height / 2.0),
+        Food::new(window.size()),
+        window.size(),
     );
-    let mut window: PistonWindow = WindowSettings::new(
-        "Snake Game",
-        [
-            Screen::WIDTH * Screen::WIDTH,
-            Screen::HEIGHT * Screen::HEIGHT,
-        ],
-    )
-    .exit_on_esc(true)
-    .build()
-    .unwrap_or_else(|e| panic!("Failed to build PistonWindow: {}", e));
 
     let mut x = Key::Q;
 
@@ -64,7 +58,7 @@ fn main() {
         });
 
         e.update(|args| {
-            game.update(args, x);
+            game.update(window.size(), args, x);
         });
 
         if game.over() {
