@@ -22,8 +22,8 @@
  */
 
 use crate::draw::draw;
-use crate::screen::{Position, Screen};
-use piston_window::{types::Color, Context, G2d};
+use crate::game::Position;
+use piston_window::{types::Color, Context, G2d, Size};
 use std::collections::VecDeque;
 
 const SNAKE_BODY_COLOR: Color = [0.0, 0.0, 1.0, 1.0];
@@ -50,7 +50,7 @@ pub struct Snake {
 }
 
 impl Snake {
-    pub fn new(x: u32, y: u32) -> Snake {
+    pub fn new(x: f64, y: f64) -> Snake {
         Snake {
             position: Position { x: x, y: y },
             length: 1,
@@ -61,16 +61,16 @@ impl Snake {
         }
     }
 
-    fn is_valid(&self) -> bool {
+    fn is_valid(&self, size: Size) -> bool {
         let x = self.position.x;
         let y = self.position.y;
 
-        x > 0 && y > 0 && x < Screen::WIDTH && y < Screen::HEIGHT
+        x > 0.0 && y > 0.0 && x < size.width && y < size.height
     }
 
-    pub fn mv(&mut self, direction: Direction) {
+    pub fn mv(&mut self, size: Size, direction: Direction) {
         self.wait = 0.0;
-        if !self.is_valid() {
+        if !self.is_valid(size) {
             self.is_alive = false;
             return;
         }
@@ -103,38 +103,38 @@ impl Snake {
         match self.direction {
             // push_front and pop_back
             Direction::Left => {
-                if self.overlap_tail(self.position.x - 1, self.position.y) {
+                if self.overlap_tail(self.position.x - 1.0, self.position.y) {
                     self.is_alive = false;
                     return;
                 }
-                self.position.x -= 1;
+                self.position.x -= 1.0;
                 self.tail.pop_back();
                 self.tail.push_front(self.position);
             }
             Direction::Right => {
-                if self.overlap_tail(self.position.x + 1, self.position.y) {
+                if self.overlap_tail(self.position.x + 1.0, self.position.y) {
                     self.is_alive = false;
                     return;
                 }
-                self.position.x += 1;
+                self.position.x += 1.0;
                 self.tail.pop_back();
                 self.tail.push_front(self.position);
             }
             Direction::Up => {
-                if self.overlap_tail(self.position.x, self.position.y - 1) {
+                if self.overlap_tail(self.position.x, self.position.y - 1.0) {
                     self.is_alive = false;
                     return;
                 }
-                self.position.y -= 1;
+                self.position.y -= 1.0;
                 self.tail.pop_back();
                 self.tail.push_front(self.position);
             }
             Direction::Down => {
-                if self.overlap_tail(self.position.x, self.position.y + 1) {
+                if self.overlap_tail(self.position.x, self.position.y + 1.0) {
                     self.is_alive = false;
                     return;
                 }
-                self.position.y += 1;
+                self.position.y += 1.0;
                 self.tail.pop_back();
                 self.tail.push_front(self.position);
             }
@@ -142,7 +142,7 @@ impl Snake {
         }
     }
 
-    fn overlap_tail(&self, x: u32, y: u32) -> bool {
+    fn overlap_tail(&self, x: f64, y: f64) -> bool {
         self.tail.contains(&Position { x, y })
     }
 
@@ -150,26 +150,26 @@ impl Snake {
         match self.direction {
             Direction::Left => {
                 self.tail.push_back(Position {
-                    x: self.position.x + 1,
+                    x: self.position.x + 1.0,
                     y: self.position.y,
                 });
             }
             Direction::Right => {
                 self.tail.push_back(Position {
-                    x: self.position.x - 1,
+                    x: self.position.x - 1.0,
                     y: self.position.y,
                 });
             }
             Direction::Up => {
                 self.tail.push_back(Position {
                     x: self.position.x,
-                    y: self.position.y + 1,
+                    y: self.position.y + 1.0,
                 });
             }
             Direction::Down => {
                 self.tail.push_back(Position {
                     x: self.position.x,
-                    y: self.position.y - 1,
+                    y: self.position.y - 1.0,
                 });
             }
             Direction::Still => {}
@@ -180,8 +180,8 @@ impl Snake {
     pub fn draw(&self, c: &Context, g: &mut G2d) {
         draw(
             SNAKE_HEAD_COLOR,
-            self.position.x,
-            self.position.y,
+            self.position.x as u32,
+            self.position.y as u32,
             1,
             1,
             c,
@@ -190,17 +190,17 @@ impl Snake {
         self.tail
             .iter()
             .skip(1)
-            .for_each(|seg| draw(SNAKE_BODY_COLOR, seg.x, seg.y, 1, 1, c, g));
+            .for_each(|seg| draw(SNAKE_BODY_COLOR, seg.x as u32, seg.y as u32, 1, 1, c, g));
     }
 
     pub fn is_alive(&self) -> bool {
         self.is_alive
     }
 
-    pub fn update(&mut self, dt: f64, direction: Direction) {
+    pub fn update(&mut self, size: Size, dt: f64, direction: Direction) {
         self.wait += dt;
         if self.wait > SNAKE_WAIT {
-            self.mv(direction);
+            self.mv(size, direction);
         }
     }
 }
