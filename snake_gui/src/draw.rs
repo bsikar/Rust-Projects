@@ -21,12 +21,13 @@
  * SOFTWARE.
  */
 
-use crate::screen::Screen;
 use piston_window::types::Color;
 use piston_window::{rectangle, Context, G2d};
 
+const BLOCK_SIZE: f64 = 25.0;
+
 pub fn to_block_size(size: u32) -> f64 {
-    f64::from(size) * f64::from(Screen::BLOCK_SIZE)
+    f64::from(size) * BLOCK_SIZE
 }
 
 pub fn draw(color: Color, x: u32, y: u32, width: u32, height: u32, c: &Context, g: &mut G2d) {
