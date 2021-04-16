@@ -22,9 +22,9 @@
  */
 
 use crate::draw::draw;
-use crate::screen::{Position, Screen};
+use crate::game::Position;
 use crate::snake::Snake;
-use piston_window::{types::Color, Context, G2d};
+use piston_window::{types::Color, Context, G2d, Size};
 use rand::{thread_rng, Rng};
 
 const FOOD_COLOR: Color = [0.7, 0.7, 0.7, 0.7];
@@ -35,25 +35,33 @@ pub struct Food {
 }
 
 impl Food {
-    pub fn new() -> Food {
+    pub fn new(size: Size) -> Food {
         Food {
             position: Position {
-                x: thread_rng().gen_range(1..Screen::WIDTH),
-                y: thread_rng().gen_range(1..Screen::HEIGHT),
+                x: thread_rng().gen_range(1.0..size.width),
+                y: thread_rng().gen_range(1.0..size.height),
             },
         }
     }
 
-    pub fn spawn(&mut self, snake: &Snake) {
+    pub fn spawn(&mut self, size: Size, snake: &Snake) {
         while snake.tail.contains(&self.position) {
             self.position = Position {
-                x: thread_rng().gen_range(1..Screen::WIDTH),
-                y: thread_rng().gen_range(1..Screen::HEIGHT),
+                x: thread_rng().gen_range(1.0..size.width),
+                y: thread_rng().gen_range(1.0..size.height),
             };
         }
     }
 
     pub fn draw(&self, c: &Context, g: &mut G2d) {
-        draw(FOOD_COLOR, self.position.x, self.position.y, 1, 1, c, g);
+        draw(
+            FOOD_COLOR,
+            self.position.x as u32,
+            self.position.y as u32,
+            1,
+            1,
+            c,
+            g,
+        );
     }
 }
