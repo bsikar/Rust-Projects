@@ -22,29 +22,37 @@
  */
 
 use crate::food::Food;
-use crate::screen::Screen;
 use crate::snake::*;
 use opengl_graphics::{GlGraphics, GlyphCache};
 use piston_window::*;
 
+#[derive(Copy, Clone, Debug, PartialEq)]
+pub struct Position {
+    pub x: f64,
+    pub y: f64,
+}
+
 pub struct Game {
     snake: Snake,
     food: Food,
+    window_size: Size,
 }
 
 impl Game {
-    pub fn new(snake: Snake, food: Food) -> Game {
+    pub fn new(snake: Snake, food: Food, size: Size) -> Game {
         Game {
             snake: snake,
             food: food,
+            window_size: size,
         }
     }
 
-    pub fn update(&mut self, args: &UpdateArgs, key: Key) {
-        self.snake.update(args.dt, self.key_direction(key));
+    pub fn update(&mut self, size: Size, args: &UpdateArgs, key: Key) {
+        self.snake.update(size, args.dt, self.key_direction(key));
+        self.window_size = size;
         if self.snake.position == self.food.position {
             self.snake.eat();
-            self.food.spawn(&self.snake);
+            self.food.spawn(size, &self.snake);
         }
     }
 
@@ -81,10 +89,8 @@ impl Game {
                 30,
                 format!("Final Length: {}", self.snake.length).as_str(),
                 &mut glyphs,
-                c.transform.trans(
-                    f64::from(Screen::WIDTH),
-                    f64::from(Screen::HEIGHT),
-                ),
+                c.transform
+                    .trans(self.window_size.width, self.window_size.height),
                 g,
             )
         })
