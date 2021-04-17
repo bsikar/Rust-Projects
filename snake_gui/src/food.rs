@@ -22,12 +22,10 @@
  */
 
 use crate::draw::draw;
-use crate::game::Position;
+use crate::game::{Color, Position};
 use crate::snake::Snake;
-use piston_window::{types::Color, Context, G2d, Size};
+use piston_window::{Context, G2d, Size};
 use rand::{thread_rng, Rng};
-
-const FOOD_COLOR: Color = [0.7, 0.7, 0.7, 0.7];
 
 #[derive(Debug, PartialEq)]
 pub struct Food {
@@ -55,7 +53,7 @@ impl Food {
 
     pub fn draw(&self, c: &Context, g: &mut G2d) {
         draw(
-            FOOD_COLOR,
+            Color::FOOD,
             self.position.x as u32,
             self.position.y as u32,
             1,
