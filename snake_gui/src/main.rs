@@ -27,11 +27,9 @@ mod game;
 mod snake;
 
 use food::Food;
-use game::Game;
+use game::{Color, Game};
 use piston_window::*;
 use snake::Snake;
-
-// Note the magic number 50.0 is becuase one segment of the snake is 25x25
 
 fn main() {
     let mut window: PistonWindow = WindowSettings::new("Snake Game", [400, 400])
@@ -58,7 +56,7 @@ fn main() {
         }
 
         window.draw_2d(&e, |c, g, _| {
-            clear([0.5, 0.5, 0.5, 0.5], g);
+            clear(Color::BACKGROUND, g);
             game.draw(&c, g);
         });
 
