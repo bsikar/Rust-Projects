@@ -24,7 +24,7 @@
 use piston_window::types::Color;
 use piston_window::{rectangle, Context, G2d};
 
-const BLOCK_SIZE: f64 = 25.0;
+pub const BLOCK_SIZE: f64 = 25.0;
 
 pub fn to_block_size(size: u32) -> f64 {
     f64::from(size) * BLOCK_SIZE
