@@ -174,9 +174,9 @@ fn main() {
             for x in -1..=WIDTH {
                 if x < WIDTH && y < HEIGHT && x >= 0 && y >= 0 {
                     if x == snake.position.x && y == snake.position.y {
-                        addch(SNAKE_BODY as u64);
+                        addch(SNAKE_BODY as u32);
                     } else if x == food.x && y == food.y {
-                        addch(SNAKE_FOOD as u64);
+                        addch(SNAKE_FOOD as u32);
                     } else {
                         let mut did_print: bool = false;
                         for i in 0..snake.length as usize {
@@ -186,20 +186,20 @@ fn main() {
                             {
                                 break 'Main;
                             } else if x == snake.tail[i].x && y == snake.tail[i].y {
-                                addch(SNAKE_BODY as u64);
+                                addch(SNAKE_BODY as u32);
                                 did_print = true;
                                 break;
                             }
                         }
                         if !did_print {
-                            addch(' ' as u64);
+                            addch(' ' as u32);
                         }
                     }
                 } else {
-                    addch('*' as u64);
+                    addch('*' as u32);
                 }
             }
-            addch('\n' as u64);
+            addch('\n' as u32);
         }
 
         addstr(format!("Press ESC to Quit\tScore {}", snake.length).as_str());
