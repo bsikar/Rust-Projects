@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-use crate::draw::draw;
+use crate::draw::{draw, BLOCK_SIZE};
 use crate::game::{Color, Position};
 use piston_window::{Context, G2d, Size};
 use std::collections::VecDeque;
@@ -62,7 +62,10 @@ impl Snake {
     fn is_valid(&self, size: Size) -> bool {
         let x = self.position.x;
         let y = self.position.y;
-        x > 0 && y > 0 && x < (size.width / 25.0) as u32 && y < (size.height / 25.0) as u32
+        x > 0
+            && y > 0
+            && x < (size.width / BLOCK_SIZE) as u32
+            && y < (size.height / BLOCK_SIZE) as u32
     }
 
     pub fn mv(&mut self, size: Size, direction: Direction) {
