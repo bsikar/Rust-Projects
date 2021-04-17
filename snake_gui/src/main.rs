@@ -26,6 +26,7 @@ mod food;
 mod game;
 mod snake;
 
+use draw::BLOCK_SIZE;
 use food::Food;
 use game::{Color, Game};
 use piston_window::*;
@@ -39,8 +40,8 @@ fn main() {
 
     let mut game = Game::new(
         Snake::new(
-            (window.size().width / 50.0) as u32,
-            (window.size().height / 50.0) as u32,
+            (window.size().width / (BLOCK_SIZE * 2.0)) as u32,
+            (window.size().height / (BLOCK_SIZE * 2.0)) as u32,
         ),
         Food::new(window.size()),
         window.size(),
