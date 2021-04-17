@@ -26,6 +26,17 @@ use crate::snake::*;
 use opengl_graphics::{GlGraphics, GlyphCache};
 use piston_window::*;
 
+#[non_exhaustive]
+pub struct Color;
+
+impl Color {
+    pub const BACKGROUND: [f32; 4] = [0.3, 0.6, 0.2, 1.0];
+    pub const SNAKE_BODY: [f32; 4] = [0.0, 0.0, 1.0, 1.0];
+    pub const SNAKE_HEAD: [f32; 4] = [0.3, 0.6, 1.2, 1.0];
+    pub const FOOD: [f32; 4] = [1.0, 0.6, 0.2, 1.0];
+    pub const TEXT: [f32; 4] = [1.0, 0.99, 0.22, 1.0];
+}
+
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Position {
     pub x: u32,
@@ -84,9 +95,9 @@ impl Game {
         let mut glyphs =
             GlyphCache::new("assets/FiraSans-Regular.ttf", (), TextureSettings::new()).unwrap();
         gl.draw(args.viewport(), |c, g| {
-            clear([0.5; 4], g);
+            clear(Color::BACKGROUND, g);
             text(
-                [1.0, 0.99, 0.22, 1.0],
+                Color::TEXT,
                 (self.window_size.width / 13.3) as u32,
                 format!("Final Length: {}", self.snake.length).as_str(),
                 &mut glyphs,
