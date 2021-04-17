@@ -22,12 +22,10 @@
  */
 
 use crate::draw::draw;
-use crate::game::Position;
-use piston_window::{types::Color, Context, G2d, Size};
+use crate::game::{Color, Position};
+use piston_window::{Context, G2d, Size};
 use std::collections::VecDeque;
 
-const SNAKE_BODY_COLOR: Color = [0.0, 0.0, 1.0, 1.0];
-const SNAKE_HEAD_COLOR: Color = [1.0; 4];
 const SNAKE_WAIT: f64 = 0.2;
 
 #[derive(Debug, PartialEq, Copy, Clone)]
@@ -64,8 +62,7 @@ impl Snake {
     fn is_valid(&self, size: Size) -> bool {
         let x = self.position.x;
         let y = self.position.y;
-
-        x > 0 && y > 0 && x < (size.width / 26.7) as u32 && y < (size.height / 26.7) as u32
+        x > 0 && y > 0 && x < (size.width / 25.0) as u32 && y < (size.height / 25.0) as u32
     }
 
     pub fn mv(&mut self, size: Size, direction: Direction) {
@@ -101,7 +98,6 @@ impl Snake {
 
         // Note: I am using 2 match cases here for visibilty (I could have put this in the one up above).
         match self.direction {
-            // push_front and pop_back
             Direction::Left => {
                 if self.overlap_tail(self.position.x - 1, self.position.y) {
                     self.is_alive = false;
@@ -179,7 +175,7 @@ impl Snake {
 
     pub fn draw(&self, c: &Context, g: &mut G2d) {
         draw(
-            SNAKE_HEAD_COLOR,
+            Color::SNAKE_HEAD,
             self.position.x as u32,
             self.position.y as u32,
             1,
@@ -190,7 +186,7 @@ impl Snake {
         self.tail
             .iter()
             .skip(1)
-            .for_each(|seg| draw(SNAKE_BODY_COLOR, seg.x as u32, seg.y as u32, 1, 1, c, g));
+            .for_each(|seg| draw(Color::SNAKE_BODY, seg.x as u32, seg.y as u32, 1, 1, c, g));
     }
 
     pub fn is_alive(&self) -> bool {
