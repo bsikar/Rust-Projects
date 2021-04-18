@@ -64,8 +64,8 @@ impl Color {
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Position {
-    pub x: u32,
-    pub y: u32,
+    pub x: i32,
+    pub y: i32,
 }
 
 #[derive(Debug, PartialEq)]
