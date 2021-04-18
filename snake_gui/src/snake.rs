@@ -76,7 +76,7 @@ impl Snake {
     // make a new snake
     pub fn new(x: u32, y: u32) -> Snake {
         Snake {
-            position: Position { x: x, y: y },
+            position: Position { x, y },
             length: 1,
             direction: Direction::Still,
             tail: vec![].into_iter().collect(),
