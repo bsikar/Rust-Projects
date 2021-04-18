@@ -35,7 +35,8 @@
  *
  * **** NOTE ****
  * Rust has a really small standard library so it is common to 'import' others code
- * for more information about this read this: https://users.rust-lang.org/t/rust-should-have-a-big-standard-library-and-heres-why/37449
+ * for more information about this read this:
+ * https://users.rust-lang.org/t/rust-should-have-a-big-standard-library-and-heres-why/37449
  * it talks about making rust have a larger standard library and the creaters of the
  * language shut this down listing the reasons for not having a large libary.
  *
