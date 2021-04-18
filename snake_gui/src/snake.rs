@@ -74,7 +74,7 @@ pub struct Snake {
 
 impl Snake {
     // make a new snake
-    pub fn new(x: u32, y: u32) -> Snake {
+    pub fn new(x: i32, y: i32) -> Snake {
         Snake {
             position: Position { x, y },
             length: 1,
@@ -89,10 +89,10 @@ impl Snake {
     fn is_valid(&self, size: Size) -> bool {
         let x = self.position.x;
         let y = self.position.y;
-        x > 0
-            && y > 0
-            && x < (size.width / BLOCK_SIZE) as u32
-            && y < (size.height / BLOCK_SIZE) as u32
+        x >= 0
+            && y >= 0
+            && x <= (size.width / BLOCK_SIZE) as i32
+            && y <= (size.height / BLOCK_SIZE) as i32
     }
 
     // move the snake in the direction it is facing
@@ -170,7 +170,7 @@ impl Snake {
     }
 
     // return if the snake is over laping its tail
-    fn overlap_tail(&self, x: u32, y: u32) -> bool {
+    fn overlap_tail(&self, x: i32, y: i32) -> bool {
         self.tail.contains(&Position { x, y })
     }
 
