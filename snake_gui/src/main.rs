@@ -65,8 +65,8 @@ fn main() {
 
     let mut game = Game::new(
         Snake::new(
-            (window.size().width / (BLOCK_SIZE * 2.0)) as u32,
-            (window.size().height / (BLOCK_SIZE * 2.0)) as u32,
+            (window.size().width / (BLOCK_SIZE * 2.0)) as i32,
+            (window.size().height / (BLOCK_SIZE * 2.0)) as i32,
         ),
         Food::new(window.size()),
         window.size(),
