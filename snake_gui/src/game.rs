@@ -79,8 +79,8 @@ impl Game {
     // make a new game
     pub fn new(snake: Snake, food: Food, size: Size) -> Game {
         Game {
-            snake: snake,
-            food: food,
+            snake,
+            food,
             window_size: size,
         }
     }
