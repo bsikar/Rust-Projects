@@ -21,6 +21,31 @@
  * SOFTWARE.
  */
 
+/* The code that I am using that is not a part of the standard library are:
+ *
+ * rand:
+ * https://crates.io/crates/rand
+ *
+ * piston_window:
+ * https://crates.io/crates/piston_window
+ *
+ * piston2d-opengl_graphics
+ * https://crates.io/crates/piston2d-opengl_graphics
+ *
+ *
+ * **** NOTE ****
+ * Rust has a really small standard library so it is common to 'import' others code
+ * for more information about this read this: https://users.rust-lang.org/t/rust-should-have-a-big-standard-library-and-heres-why/37449
+ * it talks about making rust have a larger standard library and the creaters of the
+ * language shut this down listing the reasons for not having a large libary.
+ *
+ * Also refer to this to learn some more about cargo (the package manager for rust)
+ * https://doc.rust-lang.org/stable/book/ch01-03-hello-cargo.html
+ *
+ * Cargo is a convention and is standard even though I am taking code from a third party source
+ * it is standard.
+ */
+
 use crate::food::Food;
 use crate::snake::*;
 use opengl_graphics::{GlGraphics, GlyphCache};
@@ -51,6 +76,7 @@ pub struct Game {
 }
 
 impl Game {
+    // make a new game
     pub fn new(snake: Snake, food: Food, size: Size) -> Game {
         Game {
             snake: snake,
@@ -59,6 +85,8 @@ impl Game {
         }
     }
 
+    // update the game by calling functions to move the snake
+    // have the snake eat food and spawn new food
     pub fn update(&mut self, size: Size, args: &UpdateArgs, key: Key) {
         self.snake.update(size, args.dt, self.key_direction(key));
         self.window_size = size;
@@ -68,6 +96,8 @@ impl Game {
         }
     }
 
+    // change the direction the snake is moving based on the players
+    // keyboard input
     fn key_direction(&self, key: Key) -> Direction {
         return {
             match key {
@@ -81,15 +111,18 @@ impl Game {
         };
     }
 
+    // call functions to draw the snake and the food
     pub fn draw(&mut self, c: &Context, g: &mut G2d) {
         self.snake.draw(c, g);
         self.food.draw(c, g);
     }
 
+    // return is the game is over or not (if the snake is dead)
     pub fn over(&self) -> bool {
         !self.snake.is_alive()
     }
 
+    // draw the game over screen and show the final length of the snake
     pub fn draw_game_over(&self, args: RenderArgs) {
         let mut gl = GlGraphics::new(OpenGL::V3_2);
         let mut glyphs =
