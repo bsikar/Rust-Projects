@@ -55,7 +55,7 @@ use piston_window::*;
 pub struct Color;
 
 impl Color {
-    pub const BACKGROUND: [f32; 4] = [0.3, 0.6, 0.2, 1.0];
+    pub const BACKGROUND: [f32; 4] = [0.3, 0.4, 0.2, 1.0];
     pub const SNAKE_BODY: [f32; 4] = [0.0, 0.0, 1.0, 1.0];
     pub const SNAKE_HEAD: [f32; 4] = [0.3, 0.6, 1.2, 1.0];
     pub const FOOD: [f32; 4] = [1.0, 0.6, 0.2, 1.0];
