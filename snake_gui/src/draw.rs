@@ -44,6 +44,11 @@
  *
  * Cargo is a convention and is standard even though I am taking code from a third party source
  * it is standard.
+ *
+ * The only asset that I used in this code is a font:
+ *
+ * FiraSans-Regular.ttf:
+ * https://www.ffonts.net/Fira-Sans-Regular.font
  */
 
 use piston_window::types::Color;
