@@ -62,8 +62,8 @@ impl Food {
     pub fn new(size: Size) -> Food {
         Food {
             position: Position {
-                x: thread_rng().gen_range(1..(size.width / (BLOCK_SIZE * 2.0)) as u32),
-                y: thread_rng().gen_range(1..(size.height / (BLOCK_SIZE * 2.0)) as u32),
+                x: thread_rng().gen_range(0..=(size.width / (BLOCK_SIZE * 2.0)) as i32),
+                y: thread_rng().gen_range(0..=(size.height / (BLOCK_SIZE * 2.0)) as i32),
             },
         }
     }
@@ -72,8 +72,8 @@ impl Food {
     pub fn spawn(&mut self, size: Size, snake: &Snake) {
         while snake.tail.contains(&self.position) {
             self.position = Position {
-                x: thread_rng().gen_range(1..(size.width / (BLOCK_SIZE * 2.0)) as u32),
-                y: thread_rng().gen_range(1..(size.height / (BLOCK_SIZE * 2.0)) as u32),
+                x: thread_rng().gen_range(0..=(size.width / (BLOCK_SIZE * 2.0)) as i32),
+                y: thread_rng().gen_range(0..=(size.height / (BLOCK_SIZE * 2.0)) as i32),
             };
         }
     }
