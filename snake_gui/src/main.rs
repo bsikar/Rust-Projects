@@ -21,6 +21,31 @@
  * SOFTWARE.
  */
 
+/* The code that I am using that is not a part of the standard library are:
+ *
+ * rand:
+ * https://crates.io/crates/rand
+ *
+ * piston_window:
+ * https://crates.io/crates/piston_window
+ *
+ * piston2d-opengl_graphics
+ * https://crates.io/crates/piston2d-opengl_graphics
+ *
+ *
+ * **** NOTE ****
+ * Rust has a really small standard library so it is common to 'import' others code
+ * for more information about this read this: https://users.rust-lang.org/t/rust-should-have-a-big-standard-library-and-heres-why/37449
+ * it talks about making rust have a larger standard library and the creaters of the
+ * language shut this down listing the reasons for not having a large libary.
+ *
+ * Also refer to this to learn some more about cargo (the package manager for rust)
+ * https://doc.rust-lang.org/stable/book/ch01-03-hello-cargo.html
+ *
+ * Cargo is a convention and is standard even though I am taking code from a third party source
+ * it is standard.
+ */
+
 mod draw;
 mod food;
 mod game;
