@@ -21,6 +21,31 @@
  * SOFTWARE.
  */
 
+/* The code that I am using that is not a part of the standard library are:
+ *
+ * rand:
+ * https://crates.io/crates/rand
+ *
+ * piston_window:
+ * https://crates.io/crates/piston_window
+ *
+ * piston2d-opengl_graphics
+ * https://crates.io/crates/piston2d-opengl_graphics
+ *
+ *
+ * **** NOTE ****
+ * Rust has a really small standard library so it is common to 'import' others code
+ * for more information about this read this: https://users.rust-lang.org/t/rust-should-have-a-big-standard-library-and-heres-why/37449
+ * it talks about making rust have a larger standard library and the creaters of the
+ * language shut this down listing the reasons for not having a large libary.
+ *
+ * Also refer to this to learn some more about cargo (the package manager for rust)
+ * https://doc.rust-lang.org/stable/book/ch01-03-hello-cargo.html
+ *
+ * Cargo is a convention and is standard even though I am taking code from a third party source
+ * it is standard.
+ */
+
 use crate::draw::{draw, BLOCK_SIZE};
 use crate::game::{Color, Position};
 use crate::snake::Snake;
@@ -33,6 +58,7 @@ pub struct Food {
 }
 
 impl Food {
+    // make a new food
     pub fn new(size: Size) -> Food {
         Food {
             position: Position {
@@ -42,6 +68,7 @@ impl Food {
         }
     }
 
+    // spawn the food on the screen in a valid location
     pub fn spawn(&mut self, size: Size, snake: &Snake) {
         while snake.tail.contains(&self.position) {
             self.position = Position {
@@ -51,6 +78,7 @@ impl Food {
         }
     }
 
+    // draw the food on screen
     pub fn draw(&self, c: &Context, g: &mut G2d) {
         draw(
             Color::FOOD,
