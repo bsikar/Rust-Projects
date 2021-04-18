@@ -21,15 +21,43 @@
  * SOFTWARE.
  */
 
+/* The code that I am using that is not a part of the standard library are:
+ *
+ * rand:
+ * https://crates.io/crates/rand
+ *
+ * piston_window:
+ * https://crates.io/crates/piston_window
+ *
+ * piston2d-opengl_graphics
+ * https://crates.io/crates/piston2d-opengl_graphics
+ *
+ *
+ * **** NOTE ****
+ * Rust has a really small standard library so it is common to 'import' others code
+ * for more information about this read this: https://users.rust-lang.org/t/rust-should-have-a-big-standard-library-and-heres-why/37449
+ * it talks about making rust have a larger standard library and the creaters of the
+ * language shut this down listing the reasons for not having a large libary.
+ *
+ * Also refer to this to learn some more about cargo (the package manager for rust)
+ * https://doc.rust-lang.org/stable/book/ch01-03-hello-cargo.html
+ *
+ * Cargo is a convention and is standard even though I am taking code from a third party source
+ * it is standard.
+ */
+
 use piston_window::types::Color;
 use piston_window::{rectangle, Context, G2d};
 
 pub const BLOCK_SIZE: f64 = 25.0;
 
+// return input pixel to the size of a block
+// (the head or 1 body segment of the snake)
 pub fn to_block_size(size: u32) -> f64 {
     f64::from(size) * BLOCK_SIZE
 }
 
+// draw a rectangle on the screen with the parameters inputed
 pub fn draw(color: Color, x: u32, y: u32, width: u32, height: u32, c: &Context, g: &mut G2d) {
     rectangle(
         color,
