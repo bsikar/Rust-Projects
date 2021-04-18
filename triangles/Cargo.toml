@@ -2,7 +2,7 @@
 name = "triangles"
 version = "0.1.0"
 authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
-homepage = "https://github.com/pissmilk/Rust_Projects/tree/main/triangles"
+homepage = "https://github.com/bsikar/Rust_Projects/tree/main/triangles"
 license = "MIT"
 edition = "2018"
 
