@@ -21,6 +21,31 @@
  * SOFTWARE.
  */
 
+/* The code that I am using that is not a part of the standard library are:
+ *
+ * rand:
+ * https://crates.io/crates/rand
+ *
+ * piston_window:
+ * https://crates.io/crates/piston_window
+ *
+ * piston2d-opengl_graphics
+ * https://crates.io/crates/piston2d-opengl_graphics
+ *
+ *
+ * **** NOTE ****
+ * Rust has a really small standard library so it is common to 'import' others code
+ * for more information about this read this: https://users.rust-lang.org/t/rust-should-have-a-big-standard-library-and-heres-why/37449
+ * it talks about making rust have a larger standard library and the creaters of the
+ * language shut this down listing the reasons for not having a large libary.
+ *
+ * Also refer to this to learn some more about cargo (the package manager for rust)
+ * https://doc.rust-lang.org/stable/book/ch01-03-hello-cargo.html
+ *
+ * Cargo is a convention and is standard even though I am taking code from a third party source
+ * it is standard.
+ */
+
 use crate::draw::{draw, BLOCK_SIZE};
 use crate::game::{Color, Position};
 use piston_window::{Context, G2d, Size};
@@ -48,6 +73,7 @@ pub struct Snake {
 }
 
 impl Snake {
+    // make a new snake
     pub fn new(x: u32, y: u32) -> Snake {
         Snake {
             position: Position { x: x, y: y },
@@ -59,6 +85,7 @@ impl Snake {
         }
     }
 
+    // check if the position of the snake is out of bounds
     fn is_valid(&self, size: Size) -> bool {
         let x = self.position.x;
         let y = self.position.y;
@@ -68,6 +95,7 @@ impl Snake {
             && y < (size.height / BLOCK_SIZE) as u32
     }
 
+    // move the snake in the direction it is facing
     pub fn mv(&mut self, size: Size, direction: Direction) {
         self.wait = 0.0;
         if !self.is_valid(size) {
@@ -141,10 +169,12 @@ impl Snake {
         }
     }
 
+    // return if the snake is over laping its tail
     fn overlap_tail(&self, x: u32, y: u32) -> bool {
         self.tail.contains(&Position { x, y })
     }
 
+    // have the snake eat food updating the snakes length
     pub fn eat(&mut self) {
         match self.direction {
             Direction::Left => {
@@ -176,6 +206,7 @@ impl Snake {
         self.length += 1;
     }
 
+    // draw the snake
     pub fn draw(&self, c: &Context, g: &mut G2d) {
         draw(
             Color::SNAKE_HEAD,
@@ -192,10 +223,12 @@ impl Snake {
             .for_each(|seg| draw(Color::SNAKE_BODY, seg.x as u32, seg.y as u32, 1, 1, c, g));
     }
 
+    // return if the snake is alive
     pub fn is_alive(&self) -> bool {
         self.is_alive
     }
 
+    // move the snake after a set amount of 'wait time' so the snake isnt too fast
     pub fn update(&mut self, size: Size, dt: f64, direction: Direction) {
         self.wait += dt;
         if self.wait > SNAKE_WAIT {
