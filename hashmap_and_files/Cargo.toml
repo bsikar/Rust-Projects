@@ -3,7 +3,7 @@ name = "hashmap_and_files"
 version = "0.1.0"
 authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+homepage = "https://github.com/bsikar/Rust_Projects/tree/main/hashmap_and_files"
+license = "MIT"
 
 [dependencies]
