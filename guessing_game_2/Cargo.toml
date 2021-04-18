@@ -2,10 +2,9 @@
 name = "guessing_game_2"
 version = "0.1.0"
 authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
-homepage = "https://github.com/pissmilk/Rust_Projects/tree/main/guessing_game_2"
+homepage = "https://github.com/bsikar/Rust_Projects/tree/main/guessing_game_2"
 license = "MIT"
 edition = "2018"
 
 [dependencies]
 rand = "0.6.0"
-
