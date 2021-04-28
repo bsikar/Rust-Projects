@@ -32,10 +32,13 @@ fn main() {
             .to_lowercase();
         match &radius[..2] {
             "r=" => radius[2..].parse::<f64>().unwrap(),
-            "d=" => radius[2..].parse::<f64>().unwrap()/2.,
-            _ => unreachable!()
+            "d=" => radius[2..].parse::<f64>().unwrap() / 2.,
+            _ => unreachable!(),
         }
     };
 
-    println!("{}^2 = (y - {})^2 + (x - {})^2", radius, center_point.1, center_point.0);
+    println!(
+        "{}^2 = (y - {})^2 + (x - {})^2",
+        radius, center_point.1, center_point.0
+    );
 }

@@ -1,0 +1,8 @@
+[package]
+name = "large_number_fib"
+version = "0.1.0"
+authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
+edition = "2018"
+
+[dependencies]
+num-bigint = "0.4.0"
