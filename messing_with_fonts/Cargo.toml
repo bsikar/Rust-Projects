@@ -1,0 +1,10 @@
+[package]
+name = "messing_with_font"
+version = "0.1.0"
+authors = ["Brighton Sikarskie <brighton.sikarskie@tuta.io>"]
+edition = "2018"
+license = "MIT"
+
+[dependencies]
+macroquad = "0.3.1"
+rand = "0.8.3"
