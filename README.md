@@ -1,4 +1,4 @@
-# Rust_Projects
+# Rust-Projects
 
 I made this because I recently lost all of my C files and did not want the same to happen with my Rust projects.
 
